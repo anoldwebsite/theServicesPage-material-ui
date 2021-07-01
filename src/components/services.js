@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     serviceContainer: {
-        marginTop: "12em",
+        marginTop: "10em",
         [theme.breakpoints.down("sm")]: {
             padding: 25
         }
@@ -49,11 +49,38 @@ export default function Services(props) {
     const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
-        <Grid container direction="Column">
+        <Grid container direction="column">
+            <Grid
+                item
+                style={{
+                    marginLeft: matchesSM ? 0 : "5em",
+                    marginTop: matchesSM ? "1em" : "2em"
+                }}
+            >
+                <Typography
+                    align={matchesSM ? "center" : undefined}
+                    variant="h2"
+                    gutterBottom
+                >
+                    Services
+                </Typography>
+            </Grid>
             {/* -----------------------------Code for the ios/Android Apps block-------------------------------- */}
             <Grid item>
-                <Grid container direction="row" className={classes.serviceContainer} justify={matchesSM ? "center" : "flex-end"}>
-                    <Grid item style={{ textAlign: (matchesSM ? "center" : undefined) }}>
+                <Grid
+                    container
+                    direction="row"
+                    className={classes.serviceContainer}
+                    justify={matchesSM ? "center" : "flex-end"}
+                    style={{ marginTop: matchesSM ? "1em" : "5em" }}
+                >
+                    <Grid
+                        item
+                        style={{
+                            textAlign: matchesSM ? "center" : undefined,
+                            width: matchesSM ? undefined : "35em"
+                        }}
+                    >
                         <Typography variant="h4">
                             ios/Android App Development
                         </Typography>
@@ -69,7 +96,7 @@ export default function Services(props) {
                         </Button>
                     </Grid>
                     <Grid item style={{ marginRight: (matchesSM ? 0 : "5em") }}>
-                        <img alt="Mobile Phone Icon" src={mobileAppsIcon} className={classes.icon} />
+                        <img alt="Mobile Phone Icon" src={mobileAppsIcon} width="250px" className={classes.icon} />
                     </Grid>
                 </Grid>
             </Grid>
@@ -99,8 +126,20 @@ export default function Services(props) {
             </Grid>
             {/* -----------------------------Code for the Websites Development block---------------------------- */}
             <Grid item>
-                <Grid container direction="row" className={classes.serviceContainer} justify={matchesSM ? "center" : "flex-end"}>
-                    <Grid item style={{ textAlign: (matchesSM ? "center" : undefined) }}>
+                <Grid
+                    container
+                    direction="row"
+                    className={classes.serviceContainer}
+                    justify={matchesSM ? "center" : "flex-end"}
+                    style={{ marginBottom: "10em" }}
+                >
+                    <Grid
+                        item
+                        style={{
+                            textAlign: matchesSM ? "center" : undefined,
+                            width: matchesSM ? undefined : "35em"
+                        }}
+                    >
                         <Typography variant="h4">
                             Website Development
                         </Typography>
@@ -116,7 +155,7 @@ export default function Services(props) {
                         </Button>
                     </Grid>
                     <Grid item style={{ marginRight: matchesSM ? 0 : "5em" }}>
-                        <img alt="Website Icon" src={websitesIcon} className={classes.icon} />
+                        <img alt="Website Icon" src={websitesIcon} width="250px" className={classes.icon} />
                     </Grid>
                 </Grid>
             </Grid>
