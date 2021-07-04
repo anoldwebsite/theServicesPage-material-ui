@@ -7,6 +7,7 @@ import theme from './ui/theme';
 import LandingPage from './landingPage';
 import Services from './services';
 import CustomSoftware from './customSoftware';
+import MobileApps from './mobileApps';
 
 function App() {
 
@@ -31,7 +32,12 @@ function App() {
             path="/customsoftware">
             <CustomSoftware setValue={setValue} setSelectedIndex={setSelectedIndex} />
           </Route>
-          <Route exact path="/mobileapps" component={() => <div>Mobile Apps</div>} />
+          <Route
+            exact
+            path="/mobileapps"
+          >
+            <MobileApps setValue={setValue} setSelectedIndex={setSelectedIndex} />
+          </Route>
           <Route exact path="/websites" component={() => <div>Websites</div>} />
           <Route exact path="/revolution" component={() => <div>The Revolution</div>} />
           <Route exact path="/about" component={() => <div>About Us</div>} />
