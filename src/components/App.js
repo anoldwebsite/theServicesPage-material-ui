@@ -9,6 +9,7 @@ import Services from './services';
 import CustomSoftware from './customSoftware';
 import MobileApps from './mobileApps';
 import Websites from './websites';
+import Revolution from './revolution';
 
 function App() {
 
@@ -23,29 +24,21 @@ function App() {
           <Route exact path="/">
             <LandingPage setValue={setValue} setSelectedIndex={setSelectedIndex} />
           </Route>
-          <Route
-            exact
-            path="/services">
+          <Route exact path="/services">
             <Services setValue={setValue} setSelectedIndex={setSelectedIndex} />
           </Route>
-          <Route
-            exact
-            path="/customsoftware">
+          <Route exact path="/customsoftware">
             <CustomSoftware setValue={setValue} setSelectedIndex={setSelectedIndex} />
           </Route>
-          <Route
-            exact
-            path="/mobileapps"
-          >
+          <Route exact path="/mobileapps">
             <MobileApps setValue={setValue} setSelectedIndex={setSelectedIndex} />
           </Route>
-          <Route
-            exact
-            path="/websites"
-          >
+          <Route exact path="/websites">
             <Websites setValue={setValue} setSelectedIndex={setSelectedIndex} />
           </Route>
-          <Route exact path="/revolution" component={() => <div>The Revolution</div>} />
+          <Route exact path="/revolution">
+            <Revolution setValue={setValue} setSelectedIndex={setSelectedIndex} />
+          </Route>
           <Route exact path="/about" component={() => <div>About Us</div>} />
           <Route exact path="/contact" component={() => <div>Contact Us</div>} />
           <Route exact path="/estimate" component={() => <div>Get a Free Estimate</div>} />
