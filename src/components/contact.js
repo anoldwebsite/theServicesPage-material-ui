@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import background from '../assets/background.jpg';
 import mobileBackground from '../assets/mobileBackground.jpg';
@@ -87,6 +90,12 @@ export default function Contact(props) {
     const [phoneHelper, setPhoneHelper] = useState("");
     const [message, setMessage] = useState("");
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [alert, setAlert] = useState({
+      open: false,
+      message: "",
+      backgroundColor: ""
+    });
 
     const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
     const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
@@ -116,6 +125,41 @@ export default function Contact(props) {
             default:
                 break;
         }
+    };
+
+    const buttonContents = (
+      <React.Fragment>
+        Send message
+        <img src={airplane} alt="paper airplane" style={{marginLeft: "1em"}} />
+      </React.Fragment>
+    );
+
+    const onConfirm = () => {
+      setLoading(true);
+      axios.get('https://us-central1-contactform1-32202.cloudfunctions.net/sendMyMail')
+        .then(res => {
+          setLoading(false);//Remove the spinning loader
+          setOpen(false); //Close the confirm dialog box
+          //Reset the contact form
+          setName("");
+          setEmail("");
+          setPhone("");
+          setMessage("");
+          //Show message to user that their message has been successfully sent.
+          setAlert({
+            open: true,
+            message: "Youe message has been successfully sent!",
+            backgroundColor: "#4BB543"
+          });
+        })
+        .catch(err => {
+          setLoading(false);
+          setAlert({
+            open: true,
+            message: "Something went wrong, please try again!",
+            backgroundColor: "#FF3232"
+          });
+        })
     };
 
     return (
@@ -164,8 +208,7 @@ export default function Contact(props) {
                                 onClick={() => setOpen(true)}
                                 disabled={name.length === 0 || message.length === 0 || email.length === 0 || phone.length === 0 || emailHelper.length !== 0 || phoneHelper.length !== 0}
                             >
-                                Send Message
-                                <img src={airplane} alt="paper airplane" style={{ marginLeft: "1em" }} />
+                              {buttonContents}
                             </Button>
                         </Grid>
                     </Grid>
@@ -215,16 +258,27 @@ export default function Contact(props) {
                             <Button
                                 variant="contained"
                                 className={classes.sendButton}
-                                onClick={() => setOpen(true)}
+                                onClick={onConfirm}
                                 disabled={name.length === 0 || message.length === 0 || email.length === 0 || phone.length === 0 || emailHelper.length !== 0 || phoneHelper.length !== 0}
                             >
-                                Send Message
-                                <img src={airplane} alt="paper airplane" style={{ marginLeft: "1em" }} />
+                              {loading ? <CircularProgress size={30} /> : buttonContents}
                             </Button>
                         </Grid>
                     </Grid>
                 </DialogContent>
             </Dialog>
+            <Snackbar
+              open={alert.open}
+              message={alert.message}
+              ContentProps={{
+                style: {
+                  backgroundColor: alert.backgroundColor
+                }
+              }}
+              anchorOrigin={{vertical: "top", horizontal: "center"}}
+              onClose={() => setAlert({...alert, open: false})}
+              autoHideDuration={4000}
+              />
             <Grid item container direction={matchesMD ? "column" : "row"} justify={matchesMD ? "center" : undefined} className={classes.background} alignItems="center" lg={8} xl={9}>
                 <Grid item style={{ marginLeft: (matchesMD ? 0 : "3em"), textAlign: matchesMD ? "center" : "inherit" }}>
                     <Grid container direction="column">
