@@ -136,7 +136,12 @@ export default function Contact(props) {
 
     const onConfirm = () => {
       setLoading(true);
-      axios.get('https://us-central1-contactform1-32202.cloudfunctions.net/sendMyMail')
+      axios.get('https://us-central1-contactform1-32202.cloudfunctions.net/sendMyMail', {params: {
+        name: name,
+        email: email,
+        phone: phone,
+        message: message
+      }})
         .then(res => {
           setLoading(false);//Remove the spinning loader
           setOpen(false); //Close the confirm dialog box
@@ -176,7 +181,7 @@ export default function Contact(props) {
                                 <img src={phoneIcon} alt="phone" style={{ marginRight: "0.5em" }} />
                             </Grid>
                             <Grid item>
-                                <Typography variant="body1" style={{ color: theme.palette.common.blue, fontSize: "1rem" }}><a href="tel:00923452844204" style={{ textDecoration: "none", color: "inherit" }}>(0092) 346-779983</a></Typography>
+                                <Typography variant="body1" style={{ color: theme.palette.common.blue, fontSize: "1rem" }}><a href="tel:00923452844204" style={{ textDecoration: "none", color: "inherit" }}>(0092) 345-2844204</a></Typography>
                             </Grid>
                         </Grid>
                         <Grid item container style={{ marginBottom: "2em" }}>
